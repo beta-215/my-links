@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hello</title>
+  <title>我的导航页面</title>
   <style>
+    /* 页面背景和字体 */
     body {
       margin: 0;
       font-family: "Helvetica Neue", Arial, sans-serif;
@@ -13,43 +14,79 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* 改为靠上 */
       min-height: 100vh;
+      padding-top: 20px; /* 页面整体往上 */
     }
+
+    /* 页面标题 */
     h1 {
-      margin-bottom: 40px;
-      font-size: 2em;
+      margin-bottom: 10px; /* 缩小标题下间距 */
+      font-size: 1em;      /* 更小的提示文字 */
       color: #0af;
+      text-align: center;
     }
+
+    /* 按钮样式 */
     .link-btn {
       display: block;
-      width: 80%;
-      max-width: 400px;
-      margin: 10px 0;
-      padding: 15px 20px;
+      width: 90%;
+      max-width: 350px;
+      margin: 6px 0;       /* 缩小按钮间距 */
+      padding: 10px 14px;
       text-align: center;
       text-decoration: none;
       color: #fff;
       background: linear-gradient(90deg, #0af, #06c);
-      border-radius: 10px;
-      font-size: 1.2em;
+      border-radius: 8px;
+      font-size: 0.9em;
       transition: all 0.2s;
     }
+
     .link-btn:hover {
       background: linear-gradient(90deg, #06c, #0af);
-      transform: scale(1.05);
+      transform: scale(1.03);
+    }
+
+    /* 分组间距 */
+    .group {
+      margin-bottom: 15px; /* 两组按钮间隔 */
+    }
+
+    /* 底部提示文字 */
+    .footer-text {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #aaa;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>链接失效会定期更新</h1>
 
-  <a class="link-btn" href="jump.html?link=1">👉👉1【热门榜单，点击进入🔞】</a>
-  <a class="link-btn" href="jump.html?link=2">👉👉2【热门榜单，点击进入🔞】</a>
-  <a class="link-btn" href="jump.html?link=3">👉👉3【热门榜单，点击进入🔞】</a>
-  <a class="link-btn" href="jump.html?link=4">👉👉4【热门榜单，点击进入🔞】</a>
-  <a class="link-btn" href="jump.html?link=5">👉👉5【热门榜单，点击进入🔞】</a>
-  <a class="link-btn" href="jump.html?link=6">👉👉6【热门榜单，点击进入🔞】</a>
+  <h1>温馨提示：点击下方按钮访问内容</h1>
+
+  <!-- 第一组按钮 -->
+  <div class="group">
+    <a class="link-btn" href="jump.html?link=1">👉👉1【热门榜单🔞】</a>
+    <a class="link-btn" href="jump.html?link=2">👉👉2【热门榜单🔞】</a>
+    <a class="link-btn" href="jump.html?link=3">👉👉3【热门榜单🔞】</a>
+    <a class="link-btn" href="jump.html?link=4">👉👉4【热门榜单🔞】</a>
+    <a class="link-btn" href="jump.html?link=5">👉👉5【热门榜单🔞】</a>
+    <a class="link-btn" href="jump.html?link=6">👉👉6【热门榜单🔞】</a>
+  </div>
+
+  <!-- 第二组按钮 -->
+  <div class="group">
+    <a class="link-btn" href="jump.html?link=7">👉👉7【新内容🔞】</a>
+    <a class="link-btn" href="jump.html?link=8">👉👉8【新内容🔞】</a>
+    <a class="link-btn" href="jump.html?link=9">👉👉9【新内容🔞】</a>
+  </div>
+
+  <!-- 底部提示文字 -->
+  <div class="footer-text">
+    所有链接会定期更新，如遇失效请刷新页面。
+  </div>
 
 </body>
 </html>
