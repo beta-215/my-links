@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hello</title>
+  <title>我的导航页面</title>
   <style>
-    /* 页面背景和字体 */
     body {
       margin: 0;
       font-family: "Helvetica Neue", Arial, sans-serif;
@@ -16,30 +15,24 @@
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      padding: 20px 10px 40px; /* 顶部和底部留白 */
+      padding: 20px 10px 40px;
     }
-
-    /* 页面标题 */
     h1 {
       margin-bottom: 15px;
-      font-size: 0.95em; /* 更小字体，提示作用 */
+      font-size: 0.95em;
       color: #0af;
       text-align: center;
     }
-
-    /* 按钮容器 */
     .group {
       display: flex;
-      flex-wrap: wrap;       /* 自动换行 */
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 8px;              /* 按钮之间间距 */
-      margin-bottom: 20px;   /* 分组间距 */
+      gap: 8px;
+      margin-bottom: 20px;
     }
-
-    /* 按钮样式 */
     .link-btn {
-      flex: 1 1 45%;         /* 每行两个按钮，自动适应宽度 */
-      max-width: 160px;      /* 最大宽度 */
+      flex: 1 1 45%;
+      max-width: 160px;
       padding: 10px 12px;
       text-align: center;
       text-decoration: none;
@@ -50,13 +43,10 @@
       transition: all 0.2s;
       box-sizing: border-box;
     }
-
     .link-btn:hover {
       background: linear-gradient(90deg, #06c, #0af);
       transform: scale(1.03);
     }
-
-    /* 底部提示文字 */
     .footer-text {
       margin-top: auto;
       font-size: 0.8em;
@@ -68,30 +58,32 @@
 </head>
 <body>
 
-  <h1>提示：打不开就换入口，点继续访问即可</h1>
+  <h1>提示：打不开就换入口，点击按钮继续访问</h1>
 
-  <!-- 第一组按钮 -->
-  <div class="group">
-    <a class="link-btn" href="jump.html?link=1">1【热门榜单🔞】</a>
-    <a class="link-btn" href="jump.html?link=2">2【热门榜单🔞】</a>
-    <a class="link-btn" href="jump.html?link=3">3【热门榜单🔞】</a>
-    <a class="link-btn" href="jump.html?link=4">4【热门榜单🔞】</a>
-    <a class="link-btn" href="jump.html?link=5">5【热门榜单🔞】</a>
-    <a class="link-btn" href="jump.html?link=6">6【热门榜单🔞】</a>
-  </div>
+  <div class="group" id="buttons"></div>
 
-  <!-- 第二组按钮 -->
-  <div class="group">
-    <a class="link-btn" href="jump.html?link=7">7【限时直播🔞】</a>
-    <a class="link-btn" href="jump.html?link=8">8【限时直播🔞】</a>
-    <a class="link-btn" href="jump.html?link=9">9【限时直播🔞】</a>
-  </div>
-
-  <!-- 底部提示文字 -->
   <div class="footer-text">
     所有链接会定期更新，如遇失效请刷新页面。<br>
     页面访问安全稳定，请放心使用。
   </div>
+
+  <script>
+    // 加载 JSON 并生成按钮
+    fetch('links.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('buttons');
+        let count = 1;
+        for (let key in data) {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn';
+          btn.href = 'jump.html?link=' + count;
+          btn.innerText = count + '【点击访问】';
+          container.appendChild(btn);
+          count++;
+        }
+      });
+  </script>
 
 </body>
 </html>
