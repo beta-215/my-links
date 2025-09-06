@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的链接导航</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    h1 {
+      margin-bottom: 40px;
+      font-size: 2em;
+      color: #0af;
+    }
+    .link-btn {
+      display: block;
+      width: 80%;
+      max-width: 400px;
+      margin: 10px 0;
+      padding: 15px 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(90deg, #0af, #06c);
+      border-radius: 10px;
+      font-size: 1.2em;
+      transition: all 0.2s;
+    }
+    .link-btn:hover {
+      background: linear-gradient(90deg, #06c, #0af);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>我的导航页面</h1>
+
+  <a class="link-btn" href="jump.html?link=1">链接 1</a>
+  <a class="link-btn" href="jump.html?link=2">链接 2</a>
+  <a class="link-btn" href="jump.html?link=3">链接 3</a>
+  <a class="link-btn" href="jump.html?link=4">链接 4</a>
+  <a class="link-btn" href="jump.html?link=5">链接 5</a>
+
+</body>
+</html>

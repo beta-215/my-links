@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跳转中...</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #0af;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    p {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #0af;
+      border-top: 4px solid #111;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <p>正在跳转，请稍候...</p>
+  <div class="spinner"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const linkNumber = params.get('link');
+
+    fetch('links.json')
+      .then(res => res.json())
+      .then(data => {
+        if (data['link' + linkNumber]) {
+          setTimeout(() => {
+            window.location.href = data['link' + linkNumber];
+          }, 1000);
+        } else {
+          document.querySelector('p').textContent = "链接不存在或错误";
+        }
+      })
+      .catch(err => {
+        document.querySelector('p').textContent = "加载配置失败";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
