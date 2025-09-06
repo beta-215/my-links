@@ -3,41 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hello</title>
+  <title>我的导航页面</title>
   <style>
     body {
       margin: 0;
       font-family: "Helvetica Neue", Arial, sans-serif;
-      background: #111;
+      background: linear-gradient(to bottom, #111 0%, #222 100%);
       color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
       min-height: 100vh;
-      padding: 20px 10px 40px;
+      padding: 20px 10px 60px;
     }
 
     h1 {
       margin-bottom: 15px;
-      font-size: 0.95em;
+      font-size: 1em;
       color: #0af;
       text-align: center;
+      text-shadow: 0 0 5px #0af;
     }
 
-    /* 每个按钮占一行 */
+    .group-title {
+      font-size: 0.9em;
+      color: #0ff;
+      margin-bottom: 8px;
+      text-align: center;
+      text-shadow: 0 0 4px #0ff;
+    }
+
+    /* 分割线 */
+    .divider {
+      width: 80%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #0af, transparent);
+      margin: 15px 0;
+      border-radius: 1px;
+    }
+
     .group {
       display: flex;
-      flex-direction: column; /* ❗ 纵向排列 */
+      flex-direction: column;
       align-items: center;
-      gap: 10px;              /* 按钮间距 */
+      gap: 10px;
       width: 100%;
-      max-width: 350px;       /* 页面整体宽度控制 */
-      margin-bottom: 20px;
+      max-width: 350px;
+      margin-bottom: 25px;
     }
 
     .link-btn {
-      width: 100%;            /* 按钮占满容器宽度 */
+      width: 100%;
       padding: 12px 14px;
       text-align: center;
       text-decoration: none;
@@ -47,19 +64,22 @@
       font-size: 0.95em;
       transition: all 0.2s;
       box-sizing: border-box;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     }
 
     .link-btn:hover {
       background: linear-gradient(90deg, #06c, #0af);
       transform: scale(1.03);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
     }
 
     .footer-text {
-      margin-top: auto;
-      font-size: 0.8em;
-      color: #aaa;
+      font-size: 0.85em;
+      color: #0ff;
       text-align: center;
       line-height: 1.4em;
+      margin-top: auto;
+      text-shadow: 0 0 3px #0ff;
     }
   </style>
 </head>
@@ -67,26 +87,46 @@
 
   <h1>提示：打不开就换入口，点击按钮继续访问</h1>
 
-  <!-- 按钮容器 -->
-  <div class="group" id="buttons"></div>
+  <!-- 第一组按钮 -->
+  <div class="group-title">🔥 热门榜单入口</div>
+  <div class="group" id="group1"></div>
 
+  <!-- 分割线 -->
+  <div class="divider"></div>
+
+  <!-- 第二组按钮 -->
+  <div class="group-title">🎬 限时直播入口</div>
+  <div class="group" id="group2"></div>
+
+  <!-- 底部提示 -->
   <div class="footer-text">
     所有链接会定期更新，如遇失效请刷新页面。<br>
+    页面访问安全稳定，请放心使用。
   </div>
 
   <script>
     fetch('links.json')
       .then(res => res.json())
       .then(data => {
-        const container = document.getElementById('buttons');
-        let count = 1;
-        for (let key in data) {
+        const group1 = document.getElementById('group1');
+        const group2 = document.getElementById('group2');
+
+        // 上组按钮 1-6
+        for (let i = 1; i <= 6; i++) {
           const btn = document.createElement('a');
           btn.className = 'link-btn';
-          btn.href = 'jump.html?link=' + count;
-          btn.innerText = count + '【点击访问】';
-          container.appendChild(btn);
-          count++;
+          btn.href = 'jump.html?link=' + i;
+          btn.innerText = i + '【点击访问】';
+          group1.appendChild(btn);
+        }
+
+        // 下组按钮 7-9
+        for (let i = 7; i <= 9; i++) {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn';
+          btn.href = 'jump.html?link=' + i;
+          btn.innerText = i + '【点击访问】';
+          group2.appendChild(btn);
         }
       });
   </script>
