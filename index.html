@@ -16,7 +16,6 @@
       justify-content: flex-start;
       min-height: 100vh;
       padding: 20px 10px 40px;
-      overflow-x: hidden;
     }
 
     h1 {
@@ -26,29 +25,28 @@
       text-align: center;
     }
 
-    /* 按钮容器: 一行横向滚动 */
+    /* 每个按钮占一行 */
     .group {
       display: flex;
-      flex-wrap: nowrap;      /* 一行显示，不换行 */
-      justify-content: flex-start;
-      gap: 10px;
-      overflow-x: auto;       /* 超出屏幕可左右滑动 */
-      padding-bottom: 10px;
-      margin-bottom: 20px;
+      flex-direction: column; /* ❗ 纵向排列 */
+      align-items: center;
+      gap: 10px;              /* 按钮间距 */
       width: 100%;
+      max-width: 350px;       /* 页面整体宽度控制 */
+      margin-bottom: 20px;
     }
 
     .link-btn {
-      flex: 0 0 auto;         /* 不拉伸 */
-      padding: 10px 14px;
+      width: 100%;            /* 按钮占满容器宽度 */
+      padding: 12px 14px;
       text-align: center;
       text-decoration: none;
       color: #fff;
       background: linear-gradient(90deg, #0af, #06c);
       border-radius: 8px;
-      font-size: 0.9em;
+      font-size: 0.95em;
       transition: all 0.2s;
-      white-space: nowrap;    /* 防止按钮文字换行 */
+      box-sizing: border-box;
     }
 
     .link-btn:hover {
@@ -62,11 +60,6 @@
       color: #aaa;
       text-align: center;
       line-height: 1.4em;
-    }
-
-    /* 隐藏滚动条（可选） */
-    .group::-webkit-scrollbar {
-      display: none;
     }
   </style>
 </head>
