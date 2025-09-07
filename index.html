@@ -13,33 +13,43 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px 10px 60px;
+      justify-content: space-between;
+      height: 100vh;
+      padding: 25px 8px 25px;
+      box-sizing: border-box;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 360px;
     }
 
     h1 {
-      margin-bottom: 15px;
-      font-size: 1em;
+      margin-bottom: 10px;
+      font-size: 0.9em;
       color: #0af;
       text-align: center;
-      text-shadow: 0 0 5px #0af;
+      text-shadow: 0 0 4px #0af;
     }
 
     .group-title {
-      font-size: 0.9em;
+      font-size: 0.8em;
       color: #0ff;
-      margin-bottom: 8px;
+      margin: 6px 0;
       text-align: center;
-      text-shadow: 0 0 4px #0ff;
+      text-shadow: 0 0 3px #0ff;
     }
 
-    /* 分割线 */
     .divider {
-      width: 80%;
-      height: 2px;
+      width: 70%;
+      height: 1px;
       background: linear-gradient(to right, transparent, #0af, transparent);
-      margin: 15px 0;
+      margin: 10px 0;
       border-radius: 1px;
     }
 
@@ -47,87 +57,98 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       width: 100%;
-      max-width: 350px;
-      margin-bottom: 25px;
     }
 
     .link-btn {
       width: 100%;
-      padding: 12px 14px;
+      padding: 8px 10px;
       text-align: center;
       text-decoration: none;
       color: #fff;
       background: linear-gradient(90deg, #0af, #06c);
-      border-radius: 8px;
-      font-size: 0.95em;
+      border-radius: 6px;
+      font-size: 0.85em;
       transition: all 0.2s;
       box-sizing: border-box;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
     }
 
     .link-btn:hover {
       background: linear-gradient(90deg, #06c, #0af);
-      transform: scale(1.03);
-      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+      transform: scale(1.02);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.4);
     }
 
     .footer-text {
-      font-size: 0.85em;
+      font-size: 0.75em;
       color: #0ff;
       text-align: center;
-      line-height: 1.4em;
-      margin-top: auto;
-      text-shadow: 0 0 3px #0ff;
+      line-height: 1.3em;
+      margin-top: 8px;
+      text-shadow: 0 0 2px #0ff;
     }
   </style>
 </head>
 <body>
 
-  <h1>提示：打不开就换入口，点击按钮继续访问</h1>
+  <div class="content">
+    <h1>提示：打不开就换入口，点击按钮继续访问</h1>
 
-  <!-- 第一组按钮 -->
-  <div class="group-title">🔥 热门榜单入口</div>
-  <div class="group" id="group1"></div>
+    <div class="group-title">🔥 热门榜单入口</div>
+    <div class="group" id="group1"></div>
 
-  <!-- 分割线 -->
-  <div class="divider"></div>
+    <div class="divider"></div>
 
-  <!-- 第二组按钮 -->
-  <div class="group-title">🎬 限时直播入口</div>
-  <div class="group" id="group2"></div>
+    <div class="group-title">🎬 限时直播入口</div>
+    <div class="group" id="group2"></div>
+  </div>
 
-  <!-- 底部提示 -->
   <div class="footer-text">
     所有链接会定期更新，如遇失效请刷新页面。<br>
     页面访问安全稳定，请放心使用。
   </div>
 
   <script>
+    // 自适应缩放
+    function adjustScale() {
+      const baseHeight = 720;
+      const scale = Math.min(window.innerHeight / baseHeight, 1);
+      document.body.style.fontSize = (14 * scale) + "px";
+      document.querySelectorAll(".link-btn").forEach(btn => {
+        btn.style.padding = (8 * scale) + "px " + (10 * scale) + "px";
+        btn.style.fontSize = (0.85 * scale) + "em";
+      });
+    }
+
+    window.addEventListener("resize", adjustScale);
+    window.addEventListener("load", adjustScale);
+
+    // 加载按钮
     fetch('links.json')
       .then(res => res.json())
       .then(data => {
         const group1 = document.getElementById('group1');
         const group2 = document.getElementById('group2');
 
-        // 上组按钮 1-6
         for (let i = 1; i <= 6; i++) {
           const btn = document.createElement('a');
           btn.className = 'link-btn';
           btn.href = 'jump.html?link=' + i;
-          btn.innerText = i + '【点击访问】';
+          btn.innerText = '入口' + i;
           group1.appendChild(btn);
         }
 
-        // 下组按钮 7-9
         for (let i = 7; i <= 9; i++) {
           const btn = document.createElement('a');
           btn.className = 'link-btn';
           btn.href = 'jump.html?link=' + i;
-          btn.innerText = i + '【点击访问】';
+          btn.innerText = '直播' + (i - 6);
           group2.appendChild(btn);
         }
+
+        adjustScale();
       });
   </script>
 
