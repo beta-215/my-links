@@ -74,7 +74,6 @@
       transition: all 0.25s;
       box-sizing: border-box;
       box-shadow: 0 4px 10px rgba(0,0,0,0.35);
-      cursor: pointer;
     }
 
     /* 分组颜色区分 */
@@ -120,44 +119,38 @@
   </div>
 
   <script>
-    // 模拟从 links.json 获取数据，这里你可以替换为真实的
-    fetch('links.json')
+    // 从 links.json 读取数量并自动生成按钮
+    fetch('links.json?t=' + Date.now()) // 加时间戳避免缓存
       .then(res => res.json())
       .then(data => {
         const group1 = document.getElementById('group1');
         const group2 = document.getElementById('group2');
 
-        // 热门入口（动态生成）
+        // 前 6 个作为热门榜单入口
         for (let i = 1; i <= 6; i++) {
-          const btn = document.createElement('div');
-          btn.className = 'link-btn';
-          btn.innerText = '入口' + i;
-          btn.onclick = function() {
-            goToLink(i);
-          };
-          group1.appendChild(btn);
+          if (data[i]) {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn';
+            btn.href = 'jump.html?link=' + i; // 交给 jump.html 做跳转
+            btn.innerText = '入口' + i;
+            group1.appendChild(btn);
+          }
         }
 
-        // 限时直播入口（动态生成）
+        // 7-9 作为限时直播入口
         for (let i = 7; i <= 9; i++) {
-          const btn = document.createElement('div');
-          btn.className = 'link-btn';
-          btn.innerText = '直播' + (i - 6);
-          btn.onclick = function() {
-            goToLink(i);
-          };
-          group2.appendChild(btn);
+          if (data[i]) {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn';
+            btn.href = 'jump.html?link=' + i;
+            btn.innerText = '直播' + (i - 6);
+            group2.appendChild(btn);
+          }
         }
+      })
+      .catch(err => {
+        console.log('加载 links.json 出错：', err);
       });
-
-    // 跳转逻辑（动态跳转，避免直接暴露 href）
-    function goToLink(link) {
-      // 延迟100ms再跳转，避免即时检测
-      setTimeout(() => {
-        // 这里跳转到你的真实页面
-        window.location.href = 'jump.html?link=' + link;
-      }, 100);
-    }
   </script>
 
 </body>
