@@ -3,88 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>正在跳转…</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 1.1em;
-      color: #0af;
-      text-shadow: 0 0 6px #0af;
-      margin-bottom: 10px;
-    }
-
-    .loading {
-      margin-top: 20px;
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(255,255,255,0.2);
-      border-top-color: #0af;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .tips {
-      margin-top: 15px;
-      font-size: 0.9em;
-      color: #0ff;
-      text-shadow: 0 0 2px #0ff;
-    }
-
-    a.back {
-      margin-top: 20px;
-      color: #0ff;
-      text-decoration: underline;
-      font-size: 0.9em;
-    }
-  </style>
-</head>
-<body>
-  <h1>正在跳转，请稍候…</h1>
-  <div class="loading"></div>
-  <div class="tips">如果长时间无响应，请刷新页面或返回入口页</div>
-  <a class="back" href="index.html">返回首页</a>
-
+  <title>跳转中...</title>
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const linkId = urlParams.get('link');
+    // 读取 ?link= 参数
+    const params = new URLSearchParams(window.location.search);
+    const index = params.get('link');
 
-    if (linkId) {
-      // 读取 JSON 文件
-      fetch('links.json?t=' + Date.now()) // 加时间戳避免缓存
-        .then(res => res.json())
-        .then(data => {
-          if (data[linkId]) {
-            setTimeout(() => {
-              window.location.href = data[linkId];
-            }, 1200); // 延迟1.2秒再跳转
-          } else {
-            document.querySelector('h1').textContent = '跳转失败，未找到对应链接';
-          }
-        })
-        .catch(err => {
-          document.querySelector('h1').textContent = '加载链接失败，请稍后重试';
-        });
-    } else {
-      document.querySelector('h1').textContent = '缺少参数 link';
-    }
+    // 直接加载 links.json
+    fetch('links.json?t=' + Date.now()) // 防缓存
+      .then(res => res.json())
+      .then(data => {
+        const url = data[index];
+        if (url) {
+          // 立刻跳转，无提示、无延迟
+          window.location.href = url;
+        } else {
+          document.body.innerHTML = '<p style="color:#fff;text-align:center;margin-top:20%;">链接不存在</p>';
+        }
+      })
+      .catch(() => {
+        document.body.innerHTML = '<p style="color:#fff;text-align:center;margin-top:20%;">加载链接失败</p>';
+      });
   </script>
+</head>
+<body style="margin:0;background:#000;color:#fff;font-family:Arial;text-align:center;">
+  <!-- 不显示任何提示，直接跳 -->
 </body>
 </html>
