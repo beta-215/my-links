@@ -119,8 +119,8 @@
   </div>
 
   <script>
-    // 从 links.json 读取数量并自动生成按钮
-    fetch('links.json?t=' + Date.now()) // 加时间戳避免缓存
+    // 自动读取 links.json 并生成按钮
+    fetch('links.json?t=' + Date.now()) // 防缓存
       .then(res => res.json())
       .then(data => {
         const group1 = document.getElementById('group1');
@@ -128,10 +128,12 @@
 
         // 前 6 个作为热门榜单入口
         for (let i = 1; i <= 6; i++) {
-          if (data[i]) {
+          const url = data[i.toString()];
+          if (url) {
             const btn = document.createElement('a');
             btn.className = 'link-btn';
-            btn.href = 'jump.html?link=' + i; // 交给 jump.html 做跳转
+            // 不直接暴露真实链接，跳到 jump.html
+            btn.href = 'jump.html?link=' + i;
             btn.innerText = '入口' + i;
             group1.appendChild(btn);
           }
@@ -139,7 +141,8 @@
 
         // 7-9 作为限时直播入口
         for (let i = 7; i <= 9; i++) {
-          if (data[i]) {
+          const url = data[i.toString()];
+          if (url) {
             const btn = document.createElement('a');
             btn.className = 'link-btn';
             btn.href = 'jump.html?link=' + i;
