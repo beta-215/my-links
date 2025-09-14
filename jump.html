@@ -3,34 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>跳转中...</title>
-</head>
-<body>
-  <p style="color:#0af;text-align:center;margin-top:50px;">正在跳转，请稍候...</p>
-
-  <script>
-    // 获取 URL 参数
-    function getQueryParam(name) {
-      const url = new URL(window.location.href);
-      return url.searchParams.get(name);
+  <title>正在跳转…</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
     }
 
-    const linkNum = getQueryParam('link');
+    h1 {
+      font-size: 1.1em;
+      color: #0af;
+      text-shadow: 0 0 6px #0af;
+      margin-bottom: 10px;
+    }
 
-    // 读取 JSON 获取真实链接
-    fetch('links.json')
-      .then(res => res.json())
-      .then(data => {
-        const realLink = data['link' + linkNum];
-        if(realLink) {
-          window.location.href = realLink; // 跳转
-        } else {
-          document.body.innerHTML = '<p style="color:red;text-align:center;margin-top:50px;">链接无效</p>';
-        }
-      })
-      .catch(err => {
-        document.body.innerHTML = '<p style="color:red;text-align:center;margin-top:50px;">跳转失败</p>';
-      });
+    .loading {
+      margin-top: 20px;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255,255,255,0.2);
+      border-top-color: #0af;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .tips {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #0ff;
+      text-shadow: 0 0 2px #0ff;
+    }
+
+    a.back {
+      margin-top: 20px;
+      color: #0ff;
+      text-decoration: underline;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <h1>正在跳转，请稍候…</h1>
+  <div class="loading"></div>
+  <div class="tips">如果长时间无响应，请刷新页面或返回入口页</div>
+  <a class="back" href="index.html">返回首页</a>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const linkId = urlParams.get('link');
+
+    if (linkId) {
+      // 读取 JSON 文件
+      fetch('links.json?t=' + Date.now()) // 加时间戳避免缓存
+        .then(res => res.json())
+        .then(data => {
+          if (data[linkId]) {
+            setTimeout(() => {
+              window.location.href = data[linkId];
+            }, 1200); // 延迟1.2秒再跳转
+          } else {
+            document.querySelector('h1').textContent = '跳转失败，未找到对应链接';
+          }
+        })
+        .catch(err => {
+          document.querySelector('h1').textContent = '加载链接失败，请稍后重试';
+        });
+    } else {
+      document.querySelector('h1').textContent = '缺少参数 link';
+    }
   </script>
 </body>
 </html>
