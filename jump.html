@@ -5,28 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>跳转中...</title>
   <script>
-    // 读取 ?link= 参数
     const params = new URLSearchParams(window.location.search);
-    const index = params.get('link');
-
-    // 直接加载 links.json
-    fetch('links.json?t=' + Date.now()) // 防缓存
-      .then(res => res.json())
-      .then(data => {
-        const url = data[index];
-        if (url) {
-          // 立刻跳转，无提示、无延迟
-          window.location.href = url;
-        } else {
-          document.body.innerHTML = '<p style="color:#fff;text-align:center;margin-top:20%;">链接不存在</p>';
-        }
-      })
-      .catch(() => {
-        document.body.innerHTML = '<p style="color:#fff;text-align:center;margin-top:20%;">加载链接失败</p>';
-      });
+    const url = params.get('url');
+    if (url) {
+      // decodeURIComponent 还原真实链接
+      window.location.href = decodeURIComponent(url);
+    } else {
+      document.body.innerHTML = '<p style="color:#fff;text-align:center;margin-top:20%;">链接不存在</p>';
+    }
   </script>
 </head>
-<body style="margin:0;background:#000;color:#fff;font-family:Arial;text-align:center;">
-  <!-- 不显示任何提示，直接跳 -->
-</body>
+<body style="margin:0;background:#000;color:#fff;font-family:Arial;text-align:center;"></body>
 </html>
