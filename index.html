@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>导航入口</title>
+  <title>欢迎</title>
   <style>
     body {
       margin: 0;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+      font-family: Arial, sans-serif;
+      background: #000;
       color: #fff;
       display: flex;
       flex-direction: column;
@@ -16,110 +16,31 @@
       justify-content: space-between;
       height: 100vh;
       padding: 30px 12px 20px;
-      box-sizing: border-box;
     }
-
-    .content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      max-width: 380px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-      font-size: 1em;
-      color: #0af;
-      text-align: center;
-      text-shadow: 0 0 6px #0af;
-    }
-
-    .group-title {
-      font-size: 0.95em;
-      font-weight: bold;
-      margin: 10px 0;
-      text-align: center;
-      color: #0ff;
-      text-shadow: 0 0 3px #0ff;
-    }
-
-    .divider {
-      width: 70%;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #0af, transparent);
-      margin: 15px 0;
-      border-radius: 1px;
-    }
-
-    .group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .link-btn {
-      width: 100%;
-      padding: 10px 14px;
-      text-align: center;
-      text-decoration: none;
-      color: #fff;
-      border-radius: 8px;
-      font-size: 0.95em;
-      font-weight: 500;
-      transition: all 0.25s;
-      box-sizing: border-box;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
-    }
-
-    /* 分组颜色区分 */
-    .group1 .link-btn {
-      background: linear-gradient(90deg, #0af, #06c); /* 蓝色系 */
-    }
-    .group2 .link-btn {
-      background: linear-gradient(90deg, #66ccff, #0099cc); /* 浅蓝色渐变 */
-    }
-
-    .link-btn:hover {
-      transform: scale(1.03);
-      filter: brightness(1.1);
-      box-shadow: 0 5px 12px rgba(0,0,0,0.45);
-    }
-
-    .footer-text {
-      font-size: 0.85em;
-      color: #0ff;
-      text-align: center;
-      line-height: 1.4em;
-      margin-top: 10px;
-      text-shadow: 0 0 2px #0ff;
-    }
+    .content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 380px; }
+    h1 { margin-bottom: 20px; font-size: 1em; color: #0af; text-align: center; text-shadow: 0 0 6px #0af; }
+    .group-title { font-size: 0.95em; font-weight: bold; margin: 10px 0; text-align: center; color: #0ff; text-shadow: 0 0 3px #0ff; }
+    .divider { width: 70%; height: 1px; background: linear-gradient(to right, transparent, #0af, transparent); margin: 15px 0; border-radius: 1px; }
+    .group { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; }
+    .link-btn { width: 100%; padding: 10px 14px; text-align: center; text-decoration: none; color: #fff; border-radius: 8px; font-size: 0.95em; font-weight: 500; transition: all 0.25s; box-sizing: border-box; box-shadow: 0 4px 10px rgba(0,0,0,0.35); }
+    .group1 .link-btn { background: linear-gradient(90deg, #0af, #06c); }
+    .group2 .link-btn { background: linear-gradient(90deg, #66ccff, #0099cc); }
+    .link-btn:hover { transform: scale(1.03); filter: brightness(1.1); box-shadow: 0 5px 12px rgba(0,0,0,0.45); }
+    .footer-text { font-size: 0.85em; color: #0ff; text-align: center; line-height: 1.4em; margin-top: 10px; text-shadow: 0 0 2px #0ff; }
   </style>
 </head>
 <body>
-
   <div class="content">
     <h1>提示：打不开就换入口，点击按钮继续访问</h1>
-
     <div class="group-title">🔥 热门榜单入口</div>
     <div class="group group1" id="group1"></div>
-
     <div class="divider"></div>
-
     <div class="group-title">🎬 限时直播入口</div>
     <div class="group group2" id="group2"></div>
   </div>
-
-  <div class="footer-text">
-    所有链接会定期更新，如遇失效请刷新页面。
-  </div>
+  <div class="footer-text">所有链接会定期更新，如遇失效请刷新页面。</div>
 
   <script>
-    // 自动读取 links.json 并生成按钮
     fetch('links.json?t=' + Date.now()) // 防缓存
       .then(res => res.json())
       .then(data => {
@@ -128,12 +49,10 @@
 
         // 前 6 个作为热门榜单入口
         for (let i = 1; i <= 6; i++) {
-          const url = data[i.toString()];
-          if (url) {
+          if (data[i]) {
             const btn = document.createElement('a');
             btn.className = 'link-btn';
-            // 不直接暴露真实链接，跳到 jump.html
-            btn.href = 'jump.html?link=' + i;
+            btn.href = 'jump.html?url=' + encodeURIComponent(data[i]);
             btn.innerText = '入口' + i;
             group1.appendChild(btn);
           }
@@ -141,20 +60,16 @@
 
         // 7-9 作为限时直播入口
         for (let i = 7; i <= 9; i++) {
-          const url = data[i.toString()];
-          if (url) {
+          if (data[i]) {
             const btn = document.createElement('a');
             btn.className = 'link-btn';
-            btn.href = 'jump.html?link=' + i;
+            btn.href = 'jump.html?url=' + encodeURIComponent(data[i]);
             btn.innerText = '直播' + (i - 6);
             group2.appendChild(btn);
           }
         }
       })
-      .catch(err => {
-        console.log('加载 links.json 出错：', err);
-      });
+      .catch(err => console.log('加载 links.json 出错：', err));
   </script>
-
 </body>
 </html>
