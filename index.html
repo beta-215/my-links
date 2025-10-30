@@ -5,135 +5,284 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>导航入口</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
       font-family: Arial, sans-serif;
-      background: #000;
+      background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
       color: #fff;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      min-height: 100vh;
-      padding: 15px 12px 10px;
-      box-sizing: border-box;
+      padding: 20px 15px;
     }
-    .content { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      justify-content: flex-start; 
-      width: 100%; 
-      max-width: 380px;
-      margin-top: 10px;
+    
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin-top: 20px;
     }
-    h1 { 
-      margin-bottom: 15px; 
-      font-size: 1em; 
-      color: #0af; 
-      text-align: center; 
-      text-shadow: 0 0 6px #0af; 
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
     }
-    .group-title { 
-      font-size: 0.95em; 
-      font-weight: bold; 
-      margin: 8px 0; 
-      text-align: center; 
-      color: #0ff; 
-      text-shadow: 0 0 3px #0ff; 
+    
+    .notice {
+      font-size: 0.9rem;
+      color: #aaefff;
+      text-align: center;
+      margin-bottom: 25px;
     }
-    .divider { 
-      width: 70%; 
-      height: 1px; 
-      background: linear-gradient(to right, transparent, #0af, transparent); 
-      margin: 12px 0; 
-      border-radius: 1px; 
+    
+    .section {
+      margin-bottom: 30px;
     }
-    .group { 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      gap: 8px; 
-      width: 100%; 
-      margin-bottom: 5px;
+    
+    .section-title {
+      font-size: 1.2rem;
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
     }
-    .link-btn { 
-      width: 100%; 
-      padding: 10px 14px; 
-      text-align: center; 
-      text-decoration: none; 
-      color: #fff; 
-      border-radius: 8px; 
-      font-size: 0.95em; 
-      font-weight: 500; 
-      transition: all 0.25s; 
-      box-sizing: border-box; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.35); 
+    
+    .section-title i {
+      margin-right: 8px;
     }
-    .group1 .link-btn { 
-      background: linear-gradient(90deg, #0af, #06c); 
+    
+    .special-title {
+      color: #66ccff;
+      text-shadow: 0 0 5px #66ccff;
+      border-bottom: 1px solid rgba(102, 204, 255, 0.3);
     }
-    .group2 .link-btn { 
-      background: linear-gradient(90deg, #66ccff, #0099cc); 
+    
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
     }
-    .link-btn:hover { 
-      transform: scale(1.03); 
-      filter: brightness(1.1); 
-      box-shadow: 0 5px 12px rgba(0,0,0,0.45); 
+    
+    .single-column {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
-    .footer-text { 
-      font-size: 0.85em; 
-      color: #0ff; 
-      text-align: center; 
-      line-height: 1.4em; 
-      margin-top: 5px; 
-      text-shadow: 0 0 2px #0ff; 
-      flex-shrink: 0;
+    
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 10px;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .link-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .link-btn:hover::before {
+      left: 100%;
+    }
+    
+    .hot-btn {
+      background: linear-gradient(135deg, #0af, #06c);
+    }
+    
+    .hot-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 100, 200, 0.4);
+    }
+    
+    .live-btn {
+      background: linear-gradient(135deg, #4CAF50, #2E7D32); /* 改为绿色系 */
+    }
+    
+    .live-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(76, 175, 80, 0.4);
+    }
+    
+    .special-btn {
+      background: linear-gradient(135deg, #9C27B0, #7B1FA2); /* 改为紫色系 */
+    }
+    
+    .special-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(156, 39, 176, 0.4);
+    }
+    
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #66ccff;
+      padding: 10px;
+      width: 100%;
+    }
+    
+    .footer-text {
+      line-height: 1.5;
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 600px) {
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="content">
-    <h1>提示：打不开就换入口，点击按钮继续访问</h1>
-    <div class="group-title">🔥 热门榜单入口</div>
-    <div class="group group1" id="group1"></div>
-    <div class="divider"></div>
-    <div class="group-title">🎬 限时直播入口</div>
-    <div class="group group2" id="group2"></div>
+  <div class="container">
+    <div class="header">
+      <div class="notice">提示：打不开就换入口，点击按钮继续访问</div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">
+        <i>🔥</i> 热门榜单入口
+      </div>
+      <div class="button-grid" id="hot-group">
+        <!-- 热门入口按钮将通过JavaScript动态生成 -->
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="single-column" id="live-group1">
+        <!-- 直播入口按钮将通过JavaScript动态生成 -->
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title special-title">
+        <i>⭐</i> 特别推荐入口
+      </div>
+      <div class="button-grid" id="special-group">
+        <!-- 特别推荐按钮将通过JavaScript动态生成 -->
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="single-column" id="live-group2">
+        <!-- 直播入口按钮将通过JavaScript动态生成 -->
+      </div>
+    </div>
   </div>
-  <div class="footer-text">所有链接会定期更新，如遇失效请刷新页面。</div>
+  
+  <div class="footer">
+    <div class="footer-text">所有链接会定期更新，如遇失效请刷新页面。</div>
+  </div>
 
   <script>
-    fetch('links.json?t=' + Date.now()) // 防缓存
-      .then(res => res.json())
-      .then(data => {
-        const group1 = document.getElementById('group1');
-        const group2 = document.getElementById('group2');
+    // 模拟从links.json获取数据
+    const mockData = {
+      hot: [
+        "https://example.com/hot1",
+        "https://example.com/hot2",
+        "https://example.com/hot3",
+        "https://example.com/hot4",
+        "https://example.com/hot5",
+        "https://example.com/hot6"
+      ],
+      live1: [
+        "https://example.com/live1",
+        "https://example.com/live2",
+        "https://example.com/live3"
+      ],
+      special: [
+        "https://example.com/special1",
+        "https://example.com/special2",
+        "https://example.com/special3",
+        "https://example.com/special4",
+        "https://example.com/special5",
+        "https://example.com/special6"
+      ],
+      live2: [
+        "https://example.com/live2-1",
+        "https://example.com/live2-2",
+        "https://example.com/live2-3"
+      ]
+    };
 
-        // 前 6 个作为热门榜单入口
-        for (let i = 1; i <= 6; i++) {
-          if (data[i]) {
-            const btn = document.createElement('a');
-            btn.className = 'link-btn';
-            btn.href = 'jump.html?url=' + encodeURIComponent(data[i]);
-            btn.innerText = '入口' + i;
-            group1.appendChild(btn);
-          }
-        }
-
-        // 7-9 作为限时直播入口
-        for (let i = 7; i <= 9; i++) {
-          if (data[i]) {
-            const btn = document.createElement('a');
-            btn.className = 'link-btn';
-            btn.href = 'jump.html?url=' + encodeURIComponent(data[i]);
-            btn.innerText = '直播' + (i - 6);
-            group2.appendChild(btn);
-          }
-        }
-      })
-      .catch(err => console.log('加载 links.json 出错：', err));
+    // 页面加载完成后执行
+    document.addEventListener('DOMContentLoaded', function() {
+      const hotGroup = document.getElementById('hot-group');
+      const liveGroup1 = document.getElementById('live-group1');
+      const specialGroup = document.getElementById('special-group');
+      const liveGroup2 = document.getElementById('live-group2');
+      
+      // 创建热门入口按钮
+      if (mockData.hot) {
+        mockData.hot.forEach((url, index) => {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn hot-btn';
+          btn.href = 'jump.html?url=' + encodeURIComponent(url);
+          btn.target = '_blank';
+          btn.innerText = '入口' + (index + 1);
+          hotGroup.appendChild(btn);
+        });
+      }
+      
+      // 创建第一个直播入口按钮
+      if (mockData.live1) {
+        mockData.live1.forEach((url, index) => {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn live-btn';
+          btn.href = 'jump.html?url=' + encodeURIComponent(url);
+          btn.target = '_blank';
+          btn.innerText = '直播' + (index + 1);
+          liveGroup1.appendChild(btn);
+        });
+      }
+      
+      // 创建特别推荐按钮
+      if (mockData.special) {
+        mockData.special.forEach((url, index) => {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn special-btn';
+          btn.href = 'jump.html?url=' + encodeURIComponent(url);
+          btn.target = '_blank';
+          btn.innerText = '入口' + (index + 1);
+          specialGroup.appendChild(btn);
+        });
+      }
+      
+      // 创建第二个直播入口按钮
+      if (mockData.live2) {
+        mockData.live2.forEach((url, index) => {
+          const btn = document.createElement('a');
+          btn.className = 'link-btn live-btn';
+          btn.href = 'jump.html?url=' + encodeURIComponent(url);
+          btn.target = '_blank';
+          btn.innerText = '直播' + (index + 1);
+          liveGroup2.appendChild(btn);
+        });
+      }
+    });
   </script>
 </body>
 </html>
