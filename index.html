@@ -27,8 +27,7 @@
       display: flex;
       flex-direction: column;
       max-width: 100%;
-      margin-top: 10px;
-      align-items: center; /* 容器内内容居中 */
+      justify-content: center; /* 垂直居中内容 */
     }
     
     .header {
@@ -37,7 +36,6 @@
       padding: 8px;
       border: 1px solid rgba(0, 170, 255, 0.3);
       border-radius: 6px;
-      width: 100%; /* 保持顶部提示占满宽度 */
     }
     
     .notice {
@@ -47,12 +45,15 @@
       margin-bottom: 0;
     }
     
-    .section {
-      margin-bottom: 15px;
-      width: 100%; /* 每个section占满容器宽度 */
+    .main-content {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center; /* 内容居中 */
+      justify-content: center; /* 垂直居中内容 */
+    }
+    
+    .section {
+      margin-bottom: 15px;
     }
     
     .section-title {
@@ -64,8 +65,6 @@
       border-bottom: 1px solid rgba(0, 255, 255, 0.3);
       display: flex;
       align-items: center;
-      justify-content: center; /* 标题内容居中 */
-      width: 100%; /* 标题占满宽度 */
     }
     
     .section-title i {
@@ -84,8 +83,6 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
-      width: 100%;
-      max-width: 350px; /* 限制最大宽度，使内容居中 */
     }
     
     /* 直播使用三列布局 */
@@ -93,8 +90,6 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      width: 100%;
-      max-width: 350px; /* 限制最大宽度，使内容居中 */
     }
     
     .link-btn {
@@ -183,47 +178,44 @@
       .section-title {
         font-size: 0.9rem;
       }
-      
-      .two-column-grid,
-      .three-column-grid {
-        max-width: 320px; /* 小屏幕上稍微缩小最大宽度 */
-      }
     }
   </style>
 </head>
 <body>
+  <div class="header">
+    <div class="notice">提示：打不开就换入口，点击按钮继续访问</div>
+  </div>
+  
   <div class="container">
-    <div class="header">
-      <div class="notice">提示：打不开就换入口，点击按钮继续访问</div>
-    </div>
-    
-    <div class="section">
-      <div class="section-title">
-        <i>🔥</i> 热门榜单入口
+    <div class="main-content">
+      <div class="section">
+        <div class="section-title">
+          <i>🔥</i> 热门榜单入口
+        </div>
+        <div class="two-column-grid" id="hot-group">
+          <!-- 热门入口按钮将通过JavaScript动态生成 -->
+        </div>
       </div>
-      <div class="two-column-grid" id="hot-group">
-        <!-- 热门入口按钮将通过JavaScript动态生成 -->
+      
+      <div class="section">
+        <div class="three-column-grid" id="live-group1">
+          <!-- 直播入口按钮将通过JavaScript动态生成 -->
+        </div>
       </div>
-    </div>
-    
-    <div class="section">
-      <div class="three-column-grid" id="live-group1">
-        <!-- 直播入口按钮将通过JavaScript动态生成 -->
+      
+      <div class="section">
+        <div class="section-title special-title">
+          <i>⭐</i> 特别推荐入口
+        </div>
+        <div class="two-column-grid" id="special-group">
+          <!-- 特别推荐按钮将通过JavaScript动态生成 -->
+        </div>
       </div>
-    </div>
-    
-    <div class="section">
-      <div class="section-title special-title">
-        <i>⭐</i> 特别推荐入口
-      </div>
-      <div class="two-column-grid" id="special-group">
-        <!-- 特别推荐按钮将通过JavaScript动态生成 -->
-      </div>
-    </div>
-    
-    <div class="section">
-      <div class="three-column-grid" id="live-group2">
-        <!-- 直播入口按钮将通过JavaScript动态生成 -->
+      
+      <div class="section">
+        <div class="three-column-grid" id="live-group2">
+          <!-- 直播入口按钮将通过JavaScript动态生成 -->
+        </div>
       </div>
     </div>
   </div>
