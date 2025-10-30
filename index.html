@@ -27,15 +27,17 @@
       display: flex;
       flex-direction: column;
       max-width: 100%;
-      margin-top: 10px; /* 整体下移 */
+      margin-top: 10px;
+      align-items: center; /* 容器内内容居中 */
     }
     
     .header {
       text-align: center;
       margin-bottom: 15px;
       padding: 8px;
-      border: 1px solid rgba(0, 170, 255, 0.3); /* 顶部提示边框 */
+      border: 1px solid rgba(0, 170, 255, 0.3);
       border-radius: 6px;
+      width: 100%; /* 保持顶部提示占满宽度 */
     }
     
     .notice {
@@ -47,6 +49,10 @@
     
     .section {
       margin-bottom: 15px;
+      width: 100%; /* 每个section占满容器宽度 */
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* 内容居中 */
     }
     
     .section-title {
@@ -58,6 +64,8 @@
       border-bottom: 1px solid rgba(0, 255, 255, 0.3);
       display: flex;
       align-items: center;
+      justify-content: center; /* 标题内容居中 */
+      width: 100%; /* 标题占满宽度 */
     }
     
     .section-title i {
@@ -68,7 +76,7 @@
       color: #66ccff;
       text-shadow: 0 0 5px #66ccff;
       border-bottom: 1px solid rgba(102, 204, 255, 0.3);
-      margin-top: 15px; /* 特别推荐上方增加空隙 */
+      margin-top: 15px;
     }
     
     /* 热门榜单和特别推荐使用两列布局 */
@@ -76,6 +84,8 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
+      width: 100%;
+      max-width: 350px; /* 限制最大宽度，使内容居中 */
     }
     
     /* 直播使用三列布局 */
@@ -83,6 +93,8 @@
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
+      width: 100%;
+      max-width: 350px; /* 限制最大宽度，使内容居中 */
     }
     
     .link-btn {
@@ -153,7 +165,7 @@
       color: #66ccff;
       padding: 8px;
       width: 100%;
-      border: 1px solid rgba(102, 204, 255, 0.3); /* 底部提示边框 */
+      border: 1px solid rgba(102, 204, 255, 0.3);
       border-radius: 6px;
     }
     
@@ -170,6 +182,11 @@
       
       .section-title {
         font-size: 0.9rem;
+      }
+      
+      .two-column-grid,
+      .three-column-grid {
+        max-width: 320px; /* 小屏幕上稍微缩小最大宽度 */
       }
     }
   </style>
