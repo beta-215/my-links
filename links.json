@@ -1,12 +1,28 @@
 {
-  "1": "http://mjx.xmzmmr.com/?bucket=9UqNrALutztW",
-  "2": "http://api.xiangkangrui.com/?bucket=cw3DZR2WF5Ub",
-  "3": "http://apptest.qinyanai.com/?bucket=Y2tGKwwY9lga",
-  "4": "http://l.qinyanai.com/?bucket=H3Nb4JfBvQRN",
-  "5": "http://testpc.qinyanai.com/?bucket=854xkim6La8a",
-  "6": "http://mjx.xmzmmr.com/?bucket=9uqN4RRmc6he",
-  "7": "http://testpc.qinyanai.com/?bucket=qHi6wnzl3nzF",
-  "8": "http://api.xiangkangrui.com/?bucket=ZXK5QoTEbhkX",
-  "9": "http://apptest.qinyanai.com/?bucket=xH5FX7NprtgP",
-  "10": "http://apptest.qinyanai.com/?bucket=xH5FX7NprtgP"
+  "hot": [
+    "http://mjx.xmzmmr.com/?bucket=HNNbKYhQJAKF",
+    "http://api.xiangkangrui.com/?bucket=8U4x9lqbAiQh",
+    "http://apptest.qinyanai.com/?bucket=VrCo4kQTbyfm",
+    "http://l.qinyanai.com/?bucket=tMRpJh8LKPYU",
+    "http://testpc.qinyanai.com/?bucket=x35F3gBdNLqm",
+    "http://testpc.qinyanai.com/?bucket=ZrK5lvoJuND6"
+  ],
+  "live1": [
+    "http://mjx.xmzmmr.com/?bucket=P826HQyei4aU",
+    "http://api.xiangkangrui.com/?bucket=NhrT2KEGJVlx",
+    "http://apptest.qinyanai.com/?bucket=aGdGabLRAQny"
+  ],
+  "special": [
+    "http://qiandaocustomer.qianhoubang.com/?bucket=KmyzktxsVNsv",
+    "http://s3.nowcoder.com/?bucket=bux6XbuCrwGq",
+    "http://cfyweb.uat.317hu.com/?bucket=SuHJWuNaZ4gM",
+    "http://adapt.yidianzhishi.cn/?bucket=aHdGaCzH6Hma",
+    "http://byj.greatge.net/?bucket=dHhpBv56yYeQ",
+    "http://byj.greatge.net/?bucket=dHhpBv56yYeQ"
+  ],
+  "live2": [
+    "http://qiandaocustomer.qianhoubang.com/?bucket=G9upcegkKT4X",
+    "http://s3.nowcoder.com/?bucket=8P4x9yfKuZFU",
+    "http://byj.greatge.net/?bucket=zcbNL7ET2x95"
+  ]
 }
