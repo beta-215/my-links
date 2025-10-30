@@ -12,7 +12,7 @@
     }
     
     body {
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
       color: #fff;
       min-height: 100vh;
@@ -65,16 +65,25 @@
       border-bottom: 1px solid rgba(102, 204, 255, 0.3);
     }
     
+    /* 使用兼容性更好的flex布局替代grid */
     .button-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
       gap: 12px;
     }
     
+    .button-grid .link-btn {
+      flex: 0 0 calc(50% - 6px); /* 两列布局，减去间隙的一半 */
+    }
+    
     .single-column {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      display: block;
+    }
+    
+    .single-column .link-btn {
+      width: 100%;
+      margin-bottom: 12px;
     }
     
     .link-btn {
@@ -118,7 +127,7 @@
     }
     
     .live-btn {
-      background: linear-gradient(135deg, #4CAF50, #2E7D32); /* 改为绿色系 */
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
     }
     
     .live-btn:hover {
@@ -127,7 +136,7 @@
     }
     
     .special-btn {
-      background: linear-gradient(135deg, #9C27B0, #7B1FA2); /* 改为紫色系 */
+      background: linear-gradient(135deg, #9C27B0, #7B1FA2);
     }
     
     .special-btn:hover {
@@ -150,8 +159,8 @@
     
     /* 响应式调整 */
     @media (max-width: 600px) {
-      .button-grid {
-        grid-template-columns: 1fr;
+      .button-grid .link-btn {
+        flex: 0 0 100%; /* 小屏幕上改为单列 */
       }
     }
   </style>
@@ -200,7 +209,7 @@
   <script>
     // 模拟从links.json获取数据
     const mockData = {
-      hot: [
+      "hot": [
         "https://example.com/hot1",
         "https://example.com/hot2",
         "https://example.com/hot3",
@@ -208,12 +217,12 @@
         "https://example.com/hot5",
         "https://example.com/hot6"
       ],
-      live1: [
+      "live1": [
         "https://example.com/live1",
         "https://example.com/live2",
         "https://example.com/live3"
       ],
-      special: [
+      "special": [
         "https://example.com/special1",
         "https://example.com/special2",
         "https://example.com/special3",
@@ -221,7 +230,7 @@
         "https://example.com/special5",
         "https://example.com/special6"
       ],
-      live2: [
+      "live2": [
         "https://example.com/live2-1",
         "https://example.com/live2-2",
         "https://example.com/live2-3"
