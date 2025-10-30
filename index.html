@@ -65,25 +65,22 @@
       border-bottom: 1px solid rgba(102, 204, 255, 0.3);
     }
     
-    /* 使用兼容性更好的flex布局替代grid */
+    /* 修复两列布局问题 */
     .button-grid {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
       gap: 12px;
     }
     
     .button-grid .link-btn {
-      flex: 0 0 calc(50% - 6px); /* 两列布局，减去间隙的一半 */
+      flex: 1 1 calc(50% - 6px);
+      min-width: 0; /* 防止flex项目溢出 */
     }
     
     .single-column {
-      display: block;
-    }
-    
-    .single-column .link-btn {
-      width: 100%;
-      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
     
     .link-btn {
@@ -100,6 +97,8 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      border: none;
+      cursor: pointer;
     }
     
     .link-btn::before {
@@ -160,7 +159,7 @@
     /* 响应式调整 */
     @media (max-width: 600px) {
       .button-grid .link-btn {
-        flex: 0 0 100%; /* 小屏幕上改为单列 */
+        flex: 1 1 100%; /* 小屏幕上改为单列 */
       }
     }
   </style>
@@ -207,91 +206,77 @@
   </div>
 
   <script>
-    // 模拟从links.json获取数据
-    const mockData = {
-      "hot": [
-        "https://example.com/hot1",
-        "https://example.com/hot2",
-        "https://example.com/hot3",
-        "https://example.com/hot4",
-        "https://example.com/hot5",
-        "https://example.com/hot6"
-      ],
-      "live1": [
-        "https://example.com/live1",
-        "https://example.com/live2",
-        "https://example.com/live3"
-      ],
-      "special": [
-        "https://example.com/special1",
-        "https://example.com/special2",
-        "https://example.com/special3",
-        "https://example.com/special4",
-        "https://example.com/special5",
-        "https://example.com/special6"
-      ],
-      "live2": [
-        "https://example.com/live2-1",
-        "https://example.com/live2-2",
-        "https://example.com/live2-3"
-      ]
-    };
-
-    // 页面加载完成后执行
-    document.addEventListener('DOMContentLoaded', function() {
-      const hotGroup = document.getElementById('hot-group');
-      const liveGroup1 = document.getElementById('live-group1');
-      const specialGroup = document.getElementById('special-group');
-      const liveGroup2 = document.getElementById('live-group2');
-      
-      // 创建热门入口按钮
-      if (mockData.hot) {
-        mockData.hot.forEach((url, index) => {
-          const btn = document.createElement('a');
-          btn.className = 'link-btn hot-btn';
-          btn.href = 'jump.html?url=' + encodeURIComponent(url);
-          btn.target = '_blank';
-          btn.innerText = '入口' + (index + 1);
-          hotGroup.appendChild(btn);
-        });
-      }
-      
-      // 创建第一个直播入口按钮
-      if (mockData.live1) {
-        mockData.live1.forEach((url, index) => {
-          const btn = document.createElement('a');
-          btn.className = 'link-btn live-btn';
-          btn.href = 'jump.html?url=' + encodeURIComponent(url);
-          btn.target = '_blank';
-          btn.innerText = '直播' + (index + 1);
-          liveGroup1.appendChild(btn);
-        });
-      }
-      
-      // 创建特别推荐按钮
-      if (mockData.special) {
-        mockData.special.forEach((url, index) => {
-          const btn = document.createElement('a');
-          btn.className = 'link-btn special-btn';
-          btn.href = 'jump.html?url=' + encodeURIComponent(url);
-          btn.target = '_blank';
-          btn.innerText = '入口' + (index + 1);
-          specialGroup.appendChild(btn);
-        });
-      }
-      
-      // 创建第二个直播入口按钮
-      if (mockData.live2) {
-        mockData.live2.forEach((url, index) => {
-          const btn = document.createElement('a');
-          btn.className = 'link-btn live-btn';
-          btn.href = 'jump.html?url=' + encodeURIComponent(url);
-          btn.target = '_blank';
-          btn.innerText = '直播' + (index + 1);
-          liveGroup2.appendChild(btn);
-        });
-      }
-    });
+    // 从links.json获取数据
+    fetch('links.json?t=' + Date.now()) // 添加时间戳防止缓存
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('网络响应不正常');
+        }
+        return res.json();
+      })
+      .then(data => {
+        const hotGroup = document.getElementById('hot-group');
+        const liveGroup1 = document.getElementById('live-group1');
+        const specialGroup = document.getElementById('special-group');
+        const liveGroup2 = document.getElementById('live-group2');
+        
+        // 创建热门入口按钮
+        if (data.hot && data.hot.length > 0) {
+          data.hot.forEach((url, index) => {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn hot-btn';
+            btn.href = 'jump.html?url=' + encodeURIComponent(url);
+            btn.target = '_blank';
+            btn.innerText = '入口' + (index + 1);
+            hotGroup.appendChild(btn);
+          });
+        } else {
+          hotGroup.innerHTML = '<p style="color:#aaa;text-align:center;">暂无热门入口</p>';
+        }
+        
+        // 创建第一个直播入口按钮
+        if (data.live1 && data.live1.length > 0) {
+          data.live1.forEach((url, index) => {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn live-btn';
+            btn.href = 'jump.html?url=' + encodeURIComponent(url);
+            btn.target = '_blank';
+            btn.innerText = '直播' + (index + 1);
+            liveGroup1.appendChild(btn);
+          });
+        }
+        
+        // 创建特别推荐按钮
+        if (data.special && data.special.length > 0) {
+          data.special.forEach((url, index) => {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn special-btn';
+            btn.href = 'jump.html?url=' + encodeURIComponent(url);
+            btn.target = '_blank';
+            btn.innerText = '入口' + (index + 1);
+            specialGroup.appendChild(btn);
+          });
+        } else {
+          specialGroup.innerHTML = '<p style="color:#aaa;text-align:center;">暂无特别推荐</p>';
+        }
+        
+        // 创建第二个直播入口按钮
+        if (data.live2 && data.live2.length > 0) {
+          data.live2.forEach((url, index) => {
+            const btn = document.createElement('a');
+            btn.className = 'link-btn live-btn';
+            btn.href = 'jump.html?url=' + encodeURIComponent(url);
+            btn.target = '_blank';
+            btn.innerText = '直播' + (index + 1);
+            liveGroup2.appendChild(btn);
+          });
+        }
+      })
+      .catch(err => {
+        console.error('加载links.json出错:', err);
+        // 如果无法加载links.json，显示错误信息
+        document.getElementById('hot-group').innerHTML = '<p style="color:#f55;text-align:center;">加载链接失败，请刷新页面重试</p>';
+      });
   </script>
 </body>
 </html>
